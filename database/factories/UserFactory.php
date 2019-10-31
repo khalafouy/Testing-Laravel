@@ -34,3 +34,10 @@ $factory->define(Article::class, function (Faker $faker) {
         'title' => $faker->name,
         ];
 });
+
+
+$factory->define(\App\Team::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
