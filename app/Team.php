@@ -8,6 +8,20 @@ class Team extends Model
 {
     protected $fillable = ['name', 'size'];
 
+
+    function remove($user)
+    {
+        if ($user instanceof User) {
+            $this->members()->where('users.id', '=', $user->id)->delete();
+        }
+        else
+        {
+            $this->members()->whereIn('users.id',array_map(function($item){
+                return $item->id;
+            },$user));
+        }
+    }
+
     function add($user)
     {
         $this->guardAgainstMaxNumber();

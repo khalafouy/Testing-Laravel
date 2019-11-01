@@ -69,9 +69,35 @@ class TeamTest extends TestCase
     }
 
     /** @test a_team_can_remove_member*/
+        function a_team_can_remove_member()
+        {
+            // given create team  , then add 2 members then delete one  so the count will be on a
+            $team = factory(Team::class)->create(['id'=>1,'size'=>5]);
+            $userOne = factory(User::class)->create(['team_id'=>1]);
+            $userTwo = factory(User::class)->create(['team_id'=>1]);
+            $userThree = factory(User::class)->create(['id'=>3,'team_id'=>1]);
+            // when
 
+            $team->add($userOne);
+            $team->add($userTwo);
+            $team->add($userThree);
+            $team->remove($userThree);
+            // then
+            $this->assertEquals(2,$team->count());
+        }
 
 
     /** @test a_team_can_remove_all_members*/
+    function a_team_can_remove_all_members()
+    {
+        // given create team  , then add 2 members then delete one  so the count will be on a
+        $team = factory(Team::class)->create(['id'=>1,'size'=>5]);
+        $users = factory(User::class)->create(['team_id'=>1]);
+        // when
 
+        $team->add($users);
+        $team->remove($users);
+        // then
+        $this->assertEquals(1,$team->count());
+    }
 }
