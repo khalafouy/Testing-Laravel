@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Article;
+use App\Post;
+use App\Team;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -32,12 +34,22 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->define(Article::class, function (Faker $faker) {
     return [
         'title' => $faker->name,
-        ];
+    ];
 });
 
 
-$factory->define(\App\Team::class, function (Faker $faker) {
+$factory->define(Team::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+    ];
+});
+
+
+$factory->define(Post::class, function (Faker $faker) {
+    return [
+        'user_id' => factory(User::class)->create()->id,
+        'title' => $faker->sentence,
+        'body' => $faker->paragraph,
+
     ];
 });
