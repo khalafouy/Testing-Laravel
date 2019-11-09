@@ -8,4 +8,9 @@ class Like extends Model
 {
     protected $table = 'likes';
     protected $fillable = ['user_id', 'likeable_id', 'likeable_type'];
+
+    public function likeable()
+    {
+        return $this->morphTo();
+    }
 }
